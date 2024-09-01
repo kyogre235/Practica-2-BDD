@@ -1,9 +1,7 @@
 package bdd.practica;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.File;
-import com.opencsv.*;
+import bdd.practica.csv.ClienteBDD;
 /**
  * Hello world!
  */
@@ -17,22 +15,10 @@ public final class App {
      * @throws IOException 
      */
     public static void main(String[] args) throws IOException {
-        System.out.println("Hello World!");
-
-        File miDir = new File (".");
-        try {
-        System.out.println ("Directorio actual: " + miDir.getCanonicalPath());
-        try (CSVWriter writer = new CSVWriter(new FileWriter((miDir.getCanonicalPath())+"/src/main/java/bdd/practica/csv/ejemplo.csv"))){
-            System.out.println("lei el csv");
-        } catch (Exception e){
-            System.out.println("no pude leerlo");
-        }
-        }
-        catch(Exception e) {
-       e.printStackTrace();
-       }
-
-        
+        ClienteBDD bdd = new ClienteBDD();
+        bdd.cargarBaseDeDatos("ENTRENADORES");
+        BDDVista base = new BDDVista(bdd);
+        base.mostrar();
 
     }
 }
