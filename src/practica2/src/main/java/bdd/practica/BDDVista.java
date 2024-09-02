@@ -64,7 +64,6 @@ public class BDDVista {
             System.out.println("0. Salir");
             if (!checarEntidad(scanner.nextLine()))
                 continue;
-            
             clienteBDD.cargarBaseDeDatos(entidad);
             if (clienteBDD.getBaseDeDatosCargada())
                 break;
@@ -272,7 +271,7 @@ public class BDDVista {
                 valores[i] = scanner.nextLine();
             } else
                 valores[i] = resultadoConsulta[i];
-            stringBuilder.append(atributo + valores[i]);
+            stringBuilder.append(atributo + valores[i]+" ");
 
             System.out.println("");
         }

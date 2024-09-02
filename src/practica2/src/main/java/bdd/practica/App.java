@@ -16,7 +16,7 @@ public final class App {
      */
     public static void main(String[] args) throws IOException {
         ClienteBDD bdd = new ClienteBDD();
-        bdd.cargarBaseDeDatos("ENTRENADORES");
+        //bdd.cargarBaseDeDatos("ENTRENADORES");
         BDDVista base = new BDDVista(bdd);
         base.mostrar();
 
