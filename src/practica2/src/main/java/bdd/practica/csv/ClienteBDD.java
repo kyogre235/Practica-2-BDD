@@ -9,21 +9,40 @@ import java.util.ArrayList;
 
 import bdd.practica.TiposExcepcion;
 
+/**
+ * ClienteBDD
+ * Clase que se encarga de la manipulacion de la base de datos.
+ * @author TANGAMANDAPIO-TEAM
+ * @version 1.0
+ */
 public class ClienteBDD {
     
+    /* Tipo de entidad a revisar */
     String entidad;
+
+    /* Archivo e información de la entidad */
     ArrayList<String[]> file;
+
+    /* Estado del cliente */
     boolean estado;
+
+    /* Tipos de datos de la entidad */
     ArrayList<String> tipos;
 
-    public ClienteBDD(){
+    /**
+     * Constructor de la clase
+     */
+    public ClienteBDD() {
         entidad = "";
         file = null;
         estado = false;
         tipos = null;
-
     }
 
+    /**
+     * Carga la base de datos
+     * @param entidad Entidad a cargar
+     */
     public void cargarBaseDeDatos (String entidad){
         file = new ArrayList<String[]>();
         if (entidad.equals("ATLETAS")||entidad.equals("DISCIPLINAS")||entidad.equals("ENTRENADORES")){
@@ -31,7 +50,7 @@ public class ClienteBDD {
             this.tipos(entidad);
 
             Ruta ruta = new Ruta();
-            String rutaArchivos = ruta.ruta()+entidad.toLowerCase()+".csv";
+            String rutaArchivos = ruta.ruta() + entidad.toLowerCase() + ".csv";
             try (CSVReader reader = new CSVReader(new FileReader(rutaArchivos))) {
                 String[] linea;
                 try {
@@ -41,7 +60,6 @@ public class ClienteBDD {
                     }
                     
                 } catch (CsvValidationException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             } catch (IOException e) {
@@ -64,15 +82,14 @@ public class ClienteBDD {
             String tipo =  tipos.get(i);
             if(tipo.equals("int"))
                 if(!ClienteBDD.esNumeroEntero(string)){
-                    throw new TiposExcepcion("has intentado poner un valor no numerico donde no toca");
+                    throw new TiposExcepcion("Has intentado poner un valor no numerico donde no toca");
                 }
             i++;
         }
             i = 0;
         for (String[] filas : file) {
-            if(filas[0].equals(id)){
-               break; 
-            }
+            if (filas[0].equals(id))
+                break; 
             i++;
         }
         valores[0]=id;
@@ -80,7 +97,7 @@ public class ClienteBDD {
         file.add(valores);
 
         Ruta ruta = new Ruta();
-        String rutaArchivos = ruta.ruta()+entidad.toLowerCase()+".csv";
+        String rutaArchivos = ruta.ruta() + entidad.toLowerCase() + ".csv";
         try (CSVWriter writer = new CSVWriter(new FileWriter(rutaArchivos))) {
             writer.writeAll(file);
         } catch (IOException e) {
@@ -115,8 +132,8 @@ public class ClienteBDD {
             String tipo =  tipos.get(i);
             if(tipo.equals("int"))
                 if(!ClienteBDD.esNumeroEntero(string)){
-                    System.out.println("fallo en "+string);
-                    throw new TiposExcepcion("has intentado poner un valor no numerico donde no toca");
+                    System.out.println("Fallo en " + string);
+                    throw new TiposExcepcion("Has intentado poner un valor no numerico donde no toca");
                 }
             i++;
         }
@@ -145,7 +162,7 @@ public class ClienteBDD {
     }
     public void imprimir (){
         if(file.equals(null)){
-            System.out.println("no se a cargado ninguna base");
+            System.out.println("No se a cargado ninguna base");
             return;
         }
         for (String[] line : file) {
