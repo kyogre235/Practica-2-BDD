@@ -4,7 +4,7 @@ import java.lang.StringBuilder;
 import bdd.practica.csv.ClienteBDD;
 
 /**
- * Vista del prototipo CSV
+ * Clase que se encarga de la vista del prototipo CSV
  * @author TANGAMANDAPIO-TEAM
  * @version 1.0
  */
@@ -119,7 +119,7 @@ public class BDDVista {
             System.out.println("2. Agregar");
             System.out.println("3. Consultar");
             System.out.println("4. Eliminar");
-            System.out.println("5. imprimir");
+            System.out.println("5. Imprimir");
             System.out.println("9. Cambiar (de entidad. Actual: " + entidad + ")");
             System.out.println("0. Salir");
             if (!realizarAccion(scanner.nextLine()))
@@ -283,7 +283,7 @@ public class BDDVista {
                 System.out.println("Instancia editada con éxito.");
             } catch (TiposExcepcion e) {
                 System.out.println(e.getMessage()); 
-                System.out.println("vuelve a intentar");
+                System.out.println("Vuelve a intentar");
             }
             
         } else
@@ -296,7 +296,7 @@ public class BDDVista {
      */
     private void eliminarPorLlave(String[] resultadoConsulta) {
 
-        System.out.println("¿Está seguro de que desea eliminar la instancia con el identificador" + resultadoConsulta[0] + "? (S/N)");
+        System.out.println("¿Está seguro de que desea eliminar la instancia con el identificador " + resultadoConsulta[0] + "? (S/N)");
         if (scanner.nextLine().equalsIgnoreCase("S")) {
             clienteBDD.eliminarPorLlave(resultadoConsulta[0]);
             System.out.println("Instancia eliminada con éxito.");
@@ -320,11 +320,12 @@ public class BDDVista {
     private void agregarInstancia(String[] atributos) {
         String[] valores = new String[atributos.length];
         System.out.println("Ingrese los valores de la instancia para cada atributo.");
+        System.out.println("Recuerde que los atributos que terminan en \"N\", indican que se debe ingresar un dato numérico entero.");
         for (int i = 1; i < atributos.length; i++) {
             String atributo = atributos[i] + ": ";
             System.out.println(atributo);
             valores[i] = scanner.nextLine();
-            stringBuilder.append(atributo + valores[i]);
+            stringBuilder.append(atributo + valores[i] + " ");
             System.out.println("");
         }
         System.out.println("¿Está seguro de que desea agregar la instancia con los valores proporcionados? (S/N)");
@@ -335,7 +336,7 @@ public class BDDVista {
                 System.out.println("Instancia editada con éxito.");
             } catch (TiposExcepcion e) {
                 System.out.println(e.getMessage());
-                System.out.println("vuelve a intentar");
+                System.out.println("Vuelve a intentar");
             }
             
         } else
